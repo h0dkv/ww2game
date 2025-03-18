@@ -8,6 +8,9 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-image: url('https://www.worldhistory.org/uploads/images/18673.png?v=1733229006-1710651644');
+    background-size: cover;
+    background-position: center;
 }
 
 h1, h2 {
