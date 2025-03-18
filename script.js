@@ -1,6 +1,10 @@
 const leaders = [
-    { name: "Winston Churchill", country: "United Kingdom", img: "image_url", hp: 100, resources: 50, abilities: [{name: "Inspire", effect: "heal", value: 20, cost: 10, cooldown: 3, currentCooldown: 0, voiceLine: "We shall never surrender."}] },
-    // Other leaders
+    { name: "Winston Churchill", country: "United Kingdom", img: "https://example.com/churchill.jpg", hp: 100, resources: 50, abilities: [{name: "Inspire", effect: "heal", value: 20, cost: 10, cooldown: 3, currentCooldown: 0, voiceLine: "We shall never surrender."}] },
+    { name: "Franklin D. Roosevelt", country: "United States", img: "https://example.com/roosevelt.jpg", hp: 100, resources: 50, abilities: [{name: "New Deal", effect: "heal", value: 15, cost: 10, cooldown: 2, currentCooldown: 0, voiceLine: "The only thing we have to fear is fear itself."}] },
+    { name: "Joseph Stalin", country: "Soviet Union", img: "https://example.com/stalin.jpg", hp: 100, resources: 50, abilities: [{name: "Iron Fist", effect: "damage", value: 25, cost: 15, cooldown: 4, currentCooldown: 0, voiceLine: "The death of one man is a tragedy, the death of millions is a statistic."}] },
+    { name: "Adolf Hitler", country: "Germany", img: "https://example.com/hitler.jpg", hp: 100, resources: 50, abilities: [{name: "Blitzkrieg", effect: "damage", value: 30, cost: 20, cooldown: 5, currentCooldown: 0, voiceLine: "I will make Germany great again."}] },
+    { name: "Benito Mussolini", country: "Italy", img: "https://example.com/mussolini.jpg", hp: 100, resources: 50, abilities: [{name: "Propaganda", effect: "heal", value: 10, cost: 5, cooldown: 1, currentCooldown: 0, voiceLine: "It is better to live one day as a lion than 100 years as a sheep."}] },
+    { name: "Hideki Tojo", country: "Japan", img: "https://example.com/tojo.jpg", hp: 100, resources: 50, abilities: [{name: "Kamikaze", effect: "damage", value: 35, cost: 25, cooldown: 6, currentCooldown: 0, voiceLine: "Duty is heavier than a mountain, death is lighter than a feather."}] }
 ];
 
 const choices = ["Attack", "Defend", "Use Ability"];
@@ -68,6 +72,7 @@ function playRound(playerChoice) {
         // Player's turn logic
         const outcome = getBattleOutcome(playerChoice, enemyLeader);
         isPlayerTurn = false;
+        resultText.innerHTML = outcome;
     } else {
         // Enemy's turn logic
         enemyTurn();
@@ -142,7 +147,7 @@ function useAbility(user, target) {
         }
         ability.currentCooldown = ability.cooldown;
         user.abilities[0].currentCooldown--;
-        return `${user.name} used ${ability.name}!`;
+        return `${user.name} used ${ability.name}! ${user.name} now has ${user.resources} resources left.`;
     } else {
         return `${user.name} does not have enough resources to use ${ability.name}!`;
     }
@@ -158,6 +163,7 @@ function regenerateResources(leader) {
 function enemyTurn() {
     const enemyChoice = (enemyLeader.resources >= enemyLeader.abilities[0].cost) ? "Use Ability" : choices[Math.floor(Math.random() * choices.length)];
     const outcome = getBattleOutcome(enemyChoice, playerLeader);
+    resultText.innerHTML = outcome;
     isPlayerTurn = true;
     updateTurnDisplay();
     // Other logic
