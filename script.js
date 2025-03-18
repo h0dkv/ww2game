@@ -70,15 +70,15 @@ function updateLeaderDisplay(leader, element) {
 function playRound(playerChoice) {
     if (isPlayerTurn) {
         // Player's turn logic
-        const outcome = getBattleOutcome(playerChoice, enemyLeader);
-        isPlayerTurn = false;
+        const enemyChoice = choices[Math.floor(Math.random() * choices.length)];
+        const outcome = getBattleOutcome(playerChoice, enemyChoice);
         resultText.innerHTML = outcome;
+        isPlayerTurn = false;
     } else {
         // Enemy's turn logic
         enemyTurn();
     }
     updateTurnDisplay();
-    // Other logic
 
     if (playerLeader.hp <= 0 || enemyLeader.hp <= 0) {
         restartButton.style.display = "block";
@@ -120,13 +120,15 @@ function getBattleOutcome(playerChoice, enemyChoice) {
     } else {
         const outcomes = {
             "Attack": "Defend",
-            "Defend": "Ambush",
-            "Ambush": "Attack"
+            "Defend": "Attack",
+            "Use Ability": "Use Ability"
         };
 
+        // Check for stalemate
         if (playerChoice === enemyChoice) {
             return "It's a stalemate! Both sides hold their ground.";
-        } else if (outcomes[playerChoice] === enemyChoice) {
+        } 
+        else if (outcomes[playerChoice] === enemyChoice) {
             enemyLeader.hp -= 10;
             return "Victory! Your strategy outmaneuvered the enemy.";
         } else {
@@ -162,11 +164,10 @@ function regenerateResources(leader) {
 
 function enemyTurn() {
     const enemyChoice = (enemyLeader.resources >= enemyLeader.abilities[0].cost) ? "Use Ability" : choices[Math.floor(Math.random() * choices.length)];
-    const outcome = getBattleOutcome(enemyChoice, playerLeader);
+    const outcome = getBattleOutcome(enemyChoice, choices[Math.floor(Math.random() * choices.length)]);
     resultText.innerHTML = outcome;
     isPlayerTurn = true;
     updateTurnDisplay();
-    // Other logic
 }
 
 const backgroundMusic = new Audio('background_music.mp3');
@@ -178,8 +179,8 @@ function playSoundEffect(effect) {
 }
 
 function playVoiceLine(leader) {
-    const voiceLine = new Audio(leader.abilities[0].voiceLine);
-    voiceLine.play();
+    const voiceLine = new SpeechSynthesisUtterance(leader.abilities[0].voiceLine);
+    speechSynthesis.speak(voiceLine);
 }
 
 // Restart game
