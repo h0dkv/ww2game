@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WW2 Leaders Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                console.log('Service Worker registered with scope:', registration.scope);
+            }).catch(function(error) {
+                console.log('Service Worker registration failed:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="leader-selection">
+        <h1>Select Your Leader</h1>
+        <div id="leaders"></div>
+    </div>
+    <div id="picked-leaders" style="display:none;">
+        <h2>Picked Leaders</h2>
+        <div id="player-leader"></div>
+        <div id="enemy-leader"></div>
+    </div>
+    <div id="battle" style="display:none;">
+        <p id="result"></p>
+        <div>
+            <div class="choice" data-choice="Attack">Attack</div>
+            <div class="choice" data-choice="Defend">Defend</div>
+            <div class="choice" data-choice="Ambush">Ambush</div>
+        </div>
+        <button id="restart" style="display:none;">Restart Game</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
