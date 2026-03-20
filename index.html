@@ -1,45 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WW2 Leaders Game</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
-            }).catch(function(error) {
-                console.log('Service Worker registration failed:', error);
-            });
-        }
-    </script>
+    <title>WW2 Tactical Arena</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <div id="name-input">
-        <h1>Enter Your Name</h1>
-        <input type="text" id="player-name" placeholder="Your Name">
-        <button onclick="startGame()">Start Game</button>
-    </div>
-    <div id="leader-selection" style="display:none;">
-        <h1>Select Your Leader</h1>
-        <div id="leaders"></div>
-    </div>
-    <div id="picked-leaders" style="display:none;">
-        <h2>Picked Leaders</h2>
-        <div id="player-leader"></div>
-        <div id="enemy-leader"></div>
-    </div>
-    <div id="battle" style="display:none;">
-        <p id="result"></p>
-        <div>
-            <div class="choice" data-choice="Attack">Attack</div>
-            <div class="choice" data-choice="Defend">Defend</div>
-            <div class="choice" data-choice="Use Ability">Use Ability</div>
-        </div>
-        <button id="restart" style="display:none;">Restart Game</button>
-    </div>
+
+    <header class="header">
+        <h1>⚔️ WW2 Tactical Arena</h1>
+        <p>Командвай войника си и унищожи враговете</p>
+    </header>
+
+    <main class="main">
+        <section class="game-container">
+            <div id="game"></div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="card">
+                <h2>📊 Статус</h2>
+                <p id="status">Твой ред</p>
+            </div>
+
+            <div class="card">
+                <h2>🎮 Контрол</h2>
+                <button onclick="resetGame()">🔄 Рестарт</button>
+            </div>
+
+            <div class="card">
+                <h2>📘 Инструкции</h2>
+                <ul>
+                    <li>Кликни съседна клетка</li>
+                    <li>Убий враговете</li>
+                    <li>Избягвай да те хванат</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <p>WW2 Game • HTML / CSS / JS</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
+
 </html>
